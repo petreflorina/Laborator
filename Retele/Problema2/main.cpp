@@ -5,7 +5,7 @@ using namespace std;
 void read(vector<int> &biti, int &length)
 {
 
-    string s = "1100111";
+    string s = "00001";
 
     length = s.size();
 
@@ -121,7 +121,7 @@ int changeBase(vector<int> eroare)
 
     for(int i=0; i<eroare.size(); i++)
     {
-        sum += (eroare[i] *powerOfTwo(power));
+        sum += (eroare[i] * powerOfTwo(power));
         power--;
     }
 

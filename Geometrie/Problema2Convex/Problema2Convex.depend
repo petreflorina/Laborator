@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1416560289 source:e:\laborator\geometrie\problema2convex\main.cpp
+	<iostream>
+	<math.h>
+
