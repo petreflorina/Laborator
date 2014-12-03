@@ -1,6 +1,7 @@
 # depslib dependency file v1.0
-1416566546 source:e:\laborator\geometrie\problema3segmente\main.cpp
+1417607458 source:e:\laborator\geometrie\problema3segmente\main.cpp
 	<iostream>
 	<cstddef>
 	<stddef.h>
+	<math.h>
 

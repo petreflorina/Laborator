@@ -2,12 +2,13 @@
 #include <cstddef>
 
 #include<stddef.h>
+#include<math.h>
 
 using namespace std;
 
 struct Point
 {
-    int x,y;
+    double x,y;
 };
 
 int testDet(Point a, Point b, Point c)
@@ -52,76 +53,75 @@ float distanta(Point a, Point b)
 
 int main()
 {
-    Point p1, p2, q1, q2, err;
+    Point a, c, b, d, err;
     err.x = NULL;
     err.y = NULL;
 
     cout << "Dati coordonatele capetelor primului segment: \n";
     cout << "x: ";
-    cin >> p1.x;
+    cin >> a.x;
     cout << "y: ";
-    cin >> p1.y;
+    cin >> a.y;
     cout << "x: ";
-    cin >> q1.x;
+    cin >> b.x;
     cout << "y: ";
-    cin >> q1.y;
+    cin >> b.y;
 
 
     cout << "Dati coordonatele capetelor celui de-al 2-lea segment: \n";
     cout << "x: ";
-    cin >> p2.x;
+    cin >> c.x;
     cout << "y: ";
-    cin >> p2.y;
+    cin >> c.y;
     cout << "x: ";
-    cin >> q2.x;
+    cin >> d.x;
     cout << "y: ";
-    cin >> q2.y;
+    cin >> d.y;
 
-    cout << "Orientarea este " << testDet(p1, p2, q1) << " si " << testDet(p1, p2, q2) << "\n";
-    if (testDet(p1, p2, q1) ==0 && testDet(p1, p2, q2) == 0 )
+    bool ok=false;
+   // cout << "Orientarea este " << testDet(a, c, b) << " si " << testDet(a, c, d) << "\n";
+
+    if (intersection(a.x, a.y, b.x, b.y, c.x, c.y, d.x, d.y).x != err.x && intersection(a.x, a.y, b.x, b.y, c.x, c.y, d.x, d.y).y != err.y)
+    {
+        cout << "Se intersecteaza in punctul de coordonate: x = ";
+        cout << intersection(a.x, a.y, b.x, b.y, c.x, c.y, d.x, d.y).x << ", y = " << intersection(a.x, a.y, b.x, b.y, c.x, c.y, d.x, d.y).y;
+        ok = true;
+        return 0;
+    }
+
+    if (testDet(a, c, b) ==0 && testDet(a, c, d) == 0 )
+
     {
         ///a b c d
-        if(distanta(p1, q1)+distanta(p2,q2) < (distanta(p1, q2)))
+        if(distanta(a, b)+distanta(c,d) < (distanta(a, d)))
         {
             cout << "Nu se intersecteaza.\n";
             return 0;
         }
         else
             ///c d a b
-            if(distanta(p1, q1)+distanta(p2,q2) < (distanta(p2, q1)))
+            if(distanta(a, b)+distanta(c,d) < (distanta(c, b)))
             {
                 cout << "Nu se intersecteaza.\n";
                 return 0;
             }
-        abcd
-        cdab
-        acbd
-        acdb
-        cabd
-        cadb
-        a = p1;
-        b = q1;
-        c = p2;
-        d = q2;
         else
             ///a c b d
-            if(distanta(p1, p2) + distanta(p2,q1) == distanta(p1,q1))
-                cout << "Se intersecteaza in segmentul de coordonate: "<< p2.x << " " << p2.y<<" "<< q1.x << " " << q1.y<<"\n";
+            if(distanta(a, c) + distanta(c,b) == distanta(a,b))
+                cout << "Se intersecteaza in segmentul de coordonate: "<< c.x << " " << c.y<<" "<< b.x << " " << b.y<<"\n";
             else
                 ///c a b d
-                if (distanta(p2, p1) + distanta(p1,q1) == distanta(p2,q1))
-                    cout << "Se intersecteaza in segmentul de coordonate: "<< p1.x << " " << p1.y<<" "<< q1.x << " " << q1.y<<"\n";
+                if (distanta(c, a) + distanta(a,b) == distanta(c,b))
+                    cout << "Se intersecteaza in segmentul de coordonate: "<< a.x << " " << a.y<<" "<< b.x << " " << b.y<<"\n";
                 else
                 ///c a d b
-                    if()
+                    if(distanta(c,a) + distanta(a,d) == distanta(c,d))
+                    cout << "Se intersecteaza in segmentul de coordonate: "<< a.x << " " << a.y<<" "<< d.x << " " << d.y<<"\n";
+                else
+                    ///acdb
 
+                    if(distanta(a,c) + distanta(c,d) == distanta(a,d))
+                        cout << "Se intersecteaza in segmentul de coordonate: "<< c.x << " " << c.y<<" "<< d.x << " " << d.y<<"\n";
     }
-    else if (intersection(p1.x, p1.y, q1.x, q1.y, p2.x, p2.y, q2.x, q2.y).x != err.x && intersection(p1.x, p1.y, q1.x, q1.y, p2.x, p2.y, q2.x, q2.y).y != err.y)
-    {
-        cout << "Se intersecteaza in punctul de coordonate: x = ";
-        cout << intersection(p1.x, p1.y, q1.x, q1.y, p2.x, p2.y, q2.x, q2.y).x << ", y = " << intersection(p1.x, p1.y, q1.x, q1.y, p2.x, p2.y, q2.x, q2.y).y;
-
+        if (!ok) cout << "Nu se intersecteaza.\n";
     }
-    else
-        cout << "Nu se intersecteaza.\n";
-}
