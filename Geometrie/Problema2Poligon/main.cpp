@@ -39,23 +39,23 @@ int orientation(Point p, Point q, Point r)
     return (val > 0)? 1: 2; // clock or counterclock wise
 }
 
-bool doIntersect(Point p1, Point q1, Point p2, Point q2)
+bool doIntersect(Point A, Point C, Point B, Point D)
 {
 
-    int o1 = orientation(p1, q1, p2);
-    int o2 = orientation(p1, q1, q2);
-    int o3 = orientation(p2, q2, p1);
-    int o4 = orientation(p2, q2, q1);
+    int o1 = orientation(A, C, B);
+    int o2 = orientation(A, C, D);
+    int o3 = orientation(B, D, A);
+    int o4 = orientation(B, D, C);
 
     if (o1 != o2 && o3 != o4)
         return true;
 
-    if (o1 == 0 && onSegment(p1, p2, q1)) return true;
+    if (o1 == 0 && onSegment(A, B, C)) return true;
 
-    if (o2 == 0 && onSegment(p1, q2, q1)) return true;
+    if (o2 == 0 && onSegment(A, D, C)) return true;
 
-    if (o3 == 0 && onSegment(p2, p1, q2)) return true;
-    if (o4 == 0 && onSegment(p2, q1, q2)) return true;
+    if (o3 == 0 && onSegment(B, A, D)) return true;
+    if (o4 == 0 && onSegment(B, C, D)) return true;
 
     return false;
 }
@@ -144,7 +144,7 @@ int main()
     D = aux;
 
     bool inter = false;
-    if (esteInterior(A, B, C, M) == 1) {inter = true; }
+    if (isInsideTriangle(A, B, C, M) == 1) {inter = true; }
     if (isInsideTriangle(D, A, C, M) == 1) {inter = true; }
     cout<<(inter?"DA":"NU");
 
