@@ -22,19 +22,25 @@ Punct coordonateMijloc(Punct a, Punct b)
 
     return m;
 }
-
 double pantaDouaPuncte(Punct a, Punct b)
 {
     return (b.y - a.y)/(b.x - a.x);
 }
 
+bool division(Punct a, Punct b)
+{
+    if(a.y == b.y) return false;
+    return true;
+}
+
 double pantaMediatoare(Punct a, Punct b)
 {
+    if(a.x == b.x) return 0;
     double p = pantaDouaPuncte(a,b);
     return (-1/p);
 }
 
-Punct intersectiaMediatoarelor(Punct m, Punct n, double pn, double pm)
+Punct intersectiaMediatoarelor(Punct m, Punct n, double pm, double pn)
 {
     Punct o;
 
@@ -79,24 +85,67 @@ bool circumscriptibil(Punct a, Punct b, Punct c, Punct d)
 
 int main()
 {
-    Punct a,b,c,d,o,m,n;
+    Punct a,b,c,d,o,m,n,p;
     double raza;
 
     cout << "Dati coordonatele punctelor triunghiului.\n";
     cin >> a.x >> a.y >> b.x >> b.y >> c.x >> c.y >> d.x >> d.y;
 
+
     m = coordonateMijloc(a,b);
     n = coordonateMijloc(b,c);
+    p = coordonateMijloc(a,c);
 
+    Punct a1,b1,c1,d1;
+    int div = 0;
+
+    if(division(a,b))
+    {
+        a1 =a;
+        b1 = b;
+        div = 1;
+        m = coordonateMijloc(a,b);
+    }
+    else if(division(b,c))
+    {
+        a1 = b;
+        b1 = c;
+        div = 2;
+        m = coordonateMijloc(b,c);
+    }
+    else if(division(c,a))
+    {
+        a1 = c;
+        b1 = a;
+        div = 3;
+        m = coordonateMijloc(c,a);
+    }
+
+    if(division(a,b) && div != 1)
+    {
+        c1 = a;
+        d1 = b;
+        n = coordonateMijloc(a,b);
+    }
+    else if(division(b,c) && div != 2)
+    {
+        c1 = b;
+        d1 = c;
+        n = coordonateMijloc(b,c);
+    }
+    else if(division(c,a) && div != 3)
+    {
+        c1 = c;
+        d1 = a;
+        n = coordonateMijloc(c,a);
+    }
 //    cout << "mijloace : " << m.x<< " "<<m.y<< " "<<n.x<<" "<<n.y<<"\n";
-
-    o = intersectiaMediatoarelor(m,n,pantaMediatoare(b,c), pantaMediatoare(a,b));
-  //  cout << o.x <<" "<< o.y << " <- coordonte punct intersectie\n";
+    o = intersectiaMediatoarelor(m,n,pantaMediatoare(a1,b1),pantaMediatoare(c1,d1));
     raza = distanta(a,o);
 
     cout << pozitie(d,o,raza) <<"\n\n";
     if(circumscriptibil(a,b,c,d)) cout << "Este circumscriptibil.";
-        else cout <<"Nu este circumscriptibil.";
+    else cout <<"Nu este circumscriptibil.";
 
     return 0;
 }
