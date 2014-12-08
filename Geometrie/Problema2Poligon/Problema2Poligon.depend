@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1417724298 source:e:\laborator\geometrie\problema2poligon\main.cpp
+	<iostream>
+	<fstream>
+	<cmath>
+

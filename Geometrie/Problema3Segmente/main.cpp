@@ -79,49 +79,68 @@ int main()
     cin >> d.y;
 
     bool ok=false;
-   // cout << "Orientarea este " << testDet(a, c, b) << " si " << testDet(a, c, d) << "\n";
+    // cout << "Orientarea este " << testDet(a, c, b) << " si " << testDet(a, c, d) << "\n";
 
     if (intersection(a.x, a.y, b.x, b.y, c.x, c.y, d.x, d.y).x != err.x && intersection(a.x, a.y, b.x, b.y, c.x, c.y, d.x, d.y).y != err.y)
     {
-        cout << "Se intersecteaza in punctul de coordonate: x = ";
+        cout << "0Se intersecteaza in punctul de coordonate: x = ";
         cout << intersection(a.x, a.y, b.x, b.y, c.x, c.y, d.x, d.y).x << ", y = " << intersection(a.x, a.y, b.x, b.y, c.x, c.y, d.x, d.y).y;
         ok = true;
         return 0;
     }
+//    -ABCD
+//    -ACBD
+//    ACDB
+//
+//    -CABD
+//    -CDAB
+//    CADB
 
-    if (testDet(a, c, b) ==0 && testDet(a, c, d) == 0 )
+    if (testDet(a, c, b) == testDet(a, c, d))
 
     {
-        ///a b c d
-        if(distanta(a, b)+distanta(c,d) < (distanta(a, d)))
+        ///a b  c d
+        if(distanta(a, b)+ distanta(c,d) < (distanta(a, d)))
         {
-            cout << "Nu se intersecteaza.\n";
+            cout << "Nu se intersecteaza1.\n";
             return 0;
         }
         else
             ///c d a b
             if(distanta(a, b)+distanta(c,d) < (distanta(c, b)))
             {
-                cout << "Nu se intersecteaza.\n";
+                cout << "Nu se intersecteaza2.\n";
                 return 0;
             }
-        else
-            ///a c b d
-            if(distanta(a, c) + distanta(c,b) == distanta(a,b))
-                cout << "Se intersecteaza in segmentul de coordonate: "<< c.x << " " << c.y<<" "<< b.x << " " << b.y<<"\n";
             else
-                ///c a b d
-                if (distanta(c, a) + distanta(a,b) == distanta(c,b))
-                    cout << "Se intersecteaza in segmentul de coordonate: "<< a.x << " " << a.y<<" "<< b.x << " " << b.y<<"\n";
+                ///a c b d
+                if(distanta(a, c) + distanta(c,b) == distanta(a,b))
+                {
+                    cout << "3Se intersecteaza in segmentul de coordonate: "<< c.x << " " << c.y<<" "<< b.x << " " << b.y<<"\n";
+                    return 0;
+                }
                 else
-                ///c a d b
-                    if(distanta(c,a) + distanta(a,d) == distanta(c,d))
-                    cout << "Se intersecteaza in segmentul de coordonate: "<< a.x << " " << a.y<<" "<< d.x << " " << d.y<<"\n";
-                else
-                    ///acdb
+                    ///c a b d
+                    if (distanta(c, a) + distanta(a,b) == distanta(c,b))
+                    {
+                        cout << "4Se intersecteaza in segmentul de coordonate: "<< a.x << " " << a.y<<" "<< b.x << " " << b.y<<"\n";
+                        return 0;
+                    }
+                    else
+                        ///c a d b
+                        if(distanta(c,a) + distanta(a,d) == distanta(c,d))
+                        {
+                            cout << "5Se intersecteaza in segmentul de coordonate: "<< a.x << " " << a.y<<" "<< d.x << " " << d.y<<"\n";
+                            return 0;
+                        }
+                        else
+                            ///acdb
 
-                    if(distanta(a,c) + distanta(c,d) == distanta(a,d))
-                        cout << "Se intersecteaza in segmentul de coordonate: "<< c.x << " " << c.y<<" "<< d.x << " " << d.y<<"\n";
+                            if(distanta(a,c) + distanta(c,d) == distanta(a,d))
+                            {
+                                cout << "6Se intersecteaza in segmentul de coordonate: "<< c.x << " " << c.y<<" "<< d.x << " " << d.y<<"\n";
+                                return 0;
+                            }
     }
-        if (!ok) cout << "Nu se intersecteaza.\n";
-    }
+    if (!ok) cout << "7Nu se intersecteaza.\n";
+}
