@@ -21,56 +21,86 @@ public class CRC {
 
 		read(c, code);
 		read(g, generator);
-		addZero(code, generator);
 		write(code);
+
 		System.out
 				.println("Apasati 1 pentru codificare sau 2 pentru decodificare.");
 
 		Scanner sc = new Scanner(System.in);
-		sc.nextInt();
-		System.out.print("CRC-ul este: ");
-		division();
+
+		if (sc.nextInt() == 1) {
+			addZero(code, generator);
+			System.out.print("CRC-ul este: ");
+			division();
+		} else {
+			System.out.print("CRC-ul este: ");
+			division();
+		}
+
 	}
 
 	public static void division() {
 
 		int reserveSize = 4, parameterReserve = 4;
-		
+
 		initialiseReserve(reserveSize);
-		
-		while (lastPositionCode < code.size()) {
+
+		while (lastPositionCode <= code.size()) {
 
 			parameterReserve = addXor(reserveSize);
 			fillReserve(parameterReserve, reserveSize);
+
 		}
+		
+		reserve = addZeroToReserve(3 - reserve.size());
+
 		write(reserve, reserveSize - 1);
 	}
 
-	public static void initialiseReserve(int reserveSize){
-		
-		lastPositionCode = 3;
-		
+	public static List<Boolean> addZeroToReserve(int nrZero) {
+
+		List<Boolean> list = new ArrayList<Boolean>();
+
+		for (int i = 0; i < nrZero; i++) {
+			list.add(false);
+		}
+		for (int i = 0; i < 3 - nrZero; i++) {
+			list.add(reserve.get(i));
+		}
+
+		return list;
+	}
+
+	public static void initialiseReserve(int reserveSize) {
+
+		lastPositionCode = 4;
+
 		for (int i = 0; i < reserveSize; i++) {
 			reserve.add(code.get(i));
 		}
 	}
+
 	public static void fillReserve(int parameterReserve, int reserveSize) {
 
 		// /daca reserve-ul nu este complet, il compeltez
 		if (parameterReserve < reserveSize) {
 			for (int i = parameterReserve; i < reserveSize; i++) {
-				lastPositionCode++;
 				if (lastPositionCode < code.size()) {
-					reserve.set(i, code.get(lastPositionCode));
+					try {
+						reserve.set(i, code.get(lastPositionCode));
+					} catch (Exception e) {
+						reserve.add(code.get(lastPositionCode));
+					}
 				}
+				lastPositionCode++;
 			}
-
 		}
 	}
 
 	public static int addXor(int reserveSize) {
 
 		int parameterReserve = 0;
+		List<Boolean> list = new ArrayList<Boolean>();
 
 		boolean found = false;
 		// /verific daca primele caractere sunt 0, pana la intalnirea primului
@@ -83,11 +113,13 @@ public class CRC {
 				found = true;
 			}
 			if (found) {
-				reserve.set(parameterReserve,
-						xor(reserve.get(i), generator.get(i)));
+				// reserve.set(parameterReserve,
+				// xor(reserve.get(i), generator.get(i)));
+				list.add(xor(reserve.get(i), generator.get(i)));
 				parameterReserve++;
 			}
 		}
+		reserve = list;
 		return parameterReserve;
 	}
 
