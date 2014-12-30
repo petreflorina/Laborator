@@ -35,11 +35,9 @@ public class CRC {
 	public static void division() {
 
 		int reserveSize = 4, parameterReserve = 4;
-		lastPositionCode = 3;
-		for (int i = 0; i < reserveSize; i++) {
-			reserve.add(code.get(i));
-		}
-
+		
+		initialiseReserve(reserveSize);
+		
 		while (lastPositionCode < code.size()) {
 
 			parameterReserve = addXor(reserveSize);
@@ -48,6 +46,14 @@ public class CRC {
 		write(reserve, reserveSize - 1);
 	}
 
+	public static void initialiseReserve(int reserveSize){
+		
+		lastPositionCode = 3;
+		
+		for (int i = 0; i < reserveSize; i++) {
+			reserve.add(code.get(i));
+		}
+	}
 	public static void fillReserve(int parameterReserve, int reserveSize) {
 
 		// /daca reserve-ul nu este complet, il compeltez
