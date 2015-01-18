@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1421088936 source:e:\facultate\anul ii\semestrul i\sisteme de operare\teme\d\main.c
+	<stdio.h>
+	<stdlib.h>
+	<sys/types.h>
+	<dirent.h>
+	<string.h>
+	<unistd.h>
+	<time.h>
+	<sys/stat.h>
+

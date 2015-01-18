@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1420984428 source:e:\facultate\anul ii\semestrul i\sisteme de operare\teme\copy\main.c
+	<stdio.h>
+	<stdlib.h>
+	<io.h>
+	<sys/stat.h>
+	<fcntl.h>
+	<conio.h>
+	<fcntl.h>
+	<process.h>
+

@@ -1,0 +1,65 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class ProblemaAlun {
+
+	public static void main(String[] args) throws FileNotFoundException {
+
+		Scanner sc = new Scanner(new File("alun.in"));
+	
+		int n1 = sc.nextInt();
+		int n2 = sc.nextInt();
+		int x = sc.nextInt();
+		int k = sc.nextInt();
+		int y = sc.nextInt();
+
+		System.out.println(nrAluneAduseLaScorbura(n1, n2, x, k));
+		System.out.println(nrMinimDrumuri(n1, n2, y));
+//		System.out.printf("out.txt", nrMinimDrumuri(n1, n2, y));
+		sc.close();
+	}
+
+	public static int nrAluneAduseLaScorbura(int n1, int n2, int x, int k) {
+
+		int ture = x / k, suma = 0;
+
+		for (int i = 1; i <= ture; i++) {
+			if (i % 2 == 1) {
+				suma += n1;
+			} else {
+				suma += n2;
+			}
+		}
+
+		return suma - aluneMancate(x, k);
+	}
+
+	public static int aluneMancate(int x, int k) {
+
+		if (x % k == 0) {
+			return (x / k) - 1;
+		} else {
+			return x / k;
+		}
+	}
+
+	public static int nrMinimDrumuri(int n1, int n2, int y) {
+
+		int drumuri = 0, alune = n1 + n2; // alune adunate dupa 4 drumuri
+		int aluneDeAdunat = y - (alune * (y / alune));
+
+		drumuri = (y / alune) * 4;
+
+		if (aluneDeAdunat != 0)
+		{
+			if (aluneDeAdunat <= n1) {
+				drumuri += 2;
+			} else {
+				drumuri += 4;
+			}
+		}
+		
+		return drumuri;
+	}
+}

@@ -1,0 +1,63 @@
+package kruskal;
+
+public class main {
+
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}
+
+class Kruskal {
+	void solve(){
+		int n, m;
+		//n-noduri
+		//m-muchii
+		int k = 0;
+
+		for(int i = 0; i < m; i++)
+		{
+			Scanner sc = new Scanner();
+
+			Muchie muchie = new Muchie();
+
+			muchie.nod1 = sc.nextInt();
+			muchie.nod2 = sc.nextInt();
+			muchie.cost = sc.nextInt();
+			muchie.padure = i;
+
+			paduri[muchie.nod1] = muchie.nod1;
+			paduri[muchie.nod2] = muchie.nod2;
+
+			muchii[i] = muchie;
+		}
+
+		//sort(muchii in functie de cost);
+
+		for(int i = 0; i < m; i++)
+		{
+			int nod1 = muchii[i].nod1;
+			int nod2 = muchii[i].nod2;
+
+			//daca sunt in paduri diferite
+			if(paduri[nod1] != paduri[nod2])
+			{
+				//retinem muchia ca trecem prin ea
+				muchii[i].folosim = true;
+
+				//le punem in aceeasi padure
+				for(int j = 0; j < n; j++)
+				{
+					//daca padurea nodului curent j, este egala cu padurea nodului 2, o transform in padurea 1
+					if(paduri[j] == paduri[nod2])
+					{
+						paduri[j] = paduri[nod1];
+					}
+				}
+			}
+
+		}
+	}
+}
